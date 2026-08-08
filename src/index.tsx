@@ -234,6 +234,7 @@ app.get('/', (c) => {
       align-items: center;
       gap: 0;
       text-decoration: none;
+      color: #1a1a1a;        /* override browser default blue for <a> */
       position: relative;
       cursor: pointer;
       background: none;
