@@ -919,7 +919,7 @@ app.get('/', (c) => {
       flex-direction: column;
       justify-content: flex-end;
       align-items: flex-end;
-      padding: 0 clamp(28px, 49vw, 72px) clamp(14%, 18vh, 22%) clamp(28px, 4vw, 72px);
+      padding: 0 clamp(28px, 49vw, 72px) clamp(6%, 8vh, 10%) clamp(28px, 4vw, 72px);
       pointer-events: none;
     }
     .s3-title-block {
