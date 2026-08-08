@@ -202,11 +202,7 @@ app.get('/', (c) => {
       border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     }
 
-    /* Dark mode: navbar over dark sections */
-    #main-navbar.dark-mode {
-      background: rgba(13, 13, 13, 0.55);
-      border-bottom-color: rgba(255, 255, 255, 0.06);
-    }
+    /* dark-mode removed — navbar always white blur */
 
     /* ── Navbar Logo ── */
     .nb-logo {
@@ -221,7 +217,7 @@ app.get('/', (c) => {
       transition: color 0.3s ease;
       flex-shrink: 0;
     }
-    #main-navbar.dark-mode .nb-logo { color: #fff; }
+    /* dark-mode logo override removed */
     .nb-logo .nb-accent { color: #E8321A; }
 
     /* ── Nav items container ── */
@@ -318,10 +314,7 @@ app.get('/', (c) => {
       100% { color: inherit; }
     }
 
-    /* Dark mode label */
-    #main-navbar.dark-mode .nb-label { color: #fff; }
-    #main-navbar.dark-mode .nb-item:hover .nb-label,
-    #main-navbar.dark-mode .nb-item.active .nb-label { color: #E8321A; }
+    /* dark-mode label overrides removed */
 
     /* Orange underline */
     .nb-underline {
@@ -1833,29 +1826,7 @@ app.get('/', (c) => {
         });
       });
 
-      /* ── Dark sections: hero + servicios have dark/image backgrounds ── */
-      var darkSections = ['hero', 'section-servicios'];
-
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            var id = entry.target.id;
-            if (darkSections.indexOf(id) !== -1) {
-              navbar.classList.add('dark-mode');
-            } else {
-              navbar.classList.remove('dark-mode');
-            }
-          }
-        });
-      }, {
-        threshold: 0.35  /* section must be 35% in view to trigger */
-      });
-
-      /* Observe all top-level sections */
-      ['hero', 'section-innovar', 'section-servicios'].forEach(function(id) {
-        var el = document.getElementById(id);
-        if (el) observer.observe(el);
-      });
+      /* dark-mode observer removed — navbar always white */
 
       /* ── Active item by scroll position ── */
       var sectionMap = {
