@@ -949,7 +949,7 @@ app.get('/', (c) => {
     }
     .s3-service-desc {
       font-family: 'DM Sans', sans-serif;
-      font-size: clamp(11px, 1.0vw, 14px);
+      font-size: clamp(13px, 1.25vw, 17px);
       font-weight: 400;
       color: #fff;
       line-height: 1.55;
