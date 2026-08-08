@@ -919,7 +919,7 @@ app.get('/', (c) => {
       flex-direction: column;
       justify-content: flex-end;
       align-items: flex-end;
-      padding: 0 clamp(28px, 49vw, 72px) clamp(6%, 8vh, 10%) clamp(28px, 4vw, 72px);
+      padding: 0 clamp(28px, 49vw, 72px) clamp(14%, 18vh, 22%) clamp(28px, 4vw, 72px);
       pointer-events: none;
     }
     .s3-title-block {
@@ -954,11 +954,8 @@ app.get('/', (c) => {
       color: #fff;
       line-height: 1.55;
       letter-spacing: 0;
-      text-align: left;
+      text-align: right;
       margin-top: clamp(6px, 0.8vh, 10px);
-      /* Prevent overflow on narrow viewports — inherits overlay width naturally */
-      overflow-wrap: break-word;
-      word-break: break-word;
     }
 
     /* ── Responsive desc size ── */
@@ -1256,7 +1253,7 @@ app.get('/', (c) => {
               <div class="s3-title-block">
                 <span class="s3-title-num">(01)</span>
                 <h2 class="s3-title-text">Instalación de<br>Agentes de AI</h2>
-                <p class="s3-service-desc">Instalamos agentes de AI, que aprenden de ti y tu negocio para: Decidir. Ejecutar. Conectar con tus herramientas y Terminar las tareas por ti — mientras duermes.</p>
+                <p class="s3-service-desc">Instalamos agentes de AI que aprenden<br>de ti y tu negocio para: Decidir. Ejecutar.<br>Conectar con tus herramientas y Terminar<br>las tareas por ti — mientras duermes.</p>
               </div>
             </div>
           </div>
@@ -1288,7 +1285,7 @@ app.get('/', (c) => {
               <div class="s3-title-block">
                 <span class="s3-title-num">(02)</span>
                 <h2 class="s3-title-text">Diseño Web<br>UX / UI</h2>
-                <p class="s3-service-desc">Desarrollamos experiencias digitales cuidadosamente diseñadas para maximizar la participación y mejorar la usabilidad. Con integración de Agentes AI.</p>
+                <p class="s3-service-desc">Desarrollamos experiencias digitales<br>cuidadosamente diseñadas para maximizar<br>la participación y mejorar la usabilidad.<br>Con integración de Agentes AI.</p>
               </div>
             </div>
           </div>
@@ -1320,7 +1317,7 @@ app.get('/', (c) => {
               <div class="s3-title-block">
                 <span class="s3-title-num">(03)</span>
                 <h2 class="s3-title-text">Branding &amp;<br>Identidad Visual</h2>
-                <p class="s3-service-desc">Identidades visuales estructuradas y diseñadas para posicionar, diferenciar y escalar con precisión y claridad.</p>
+                <p class="s3-service-desc">Identidades visuales estructuradas y diseñadas<br>para posicionar, diferenciar y escalar<br>con precisión y claridad.</p>
               </div>
             </div>
           </div>
@@ -1352,7 +1349,7 @@ app.get('/', (c) => {
               <div class="s3-title-block">
                 <span class="s3-title-num">(04)</span>
                 <h2 class="s3-title-text">Foto &amp;<br>Video</h2>
-                <p class="s3-service-desc">Creamos contenido de la más alta calidad, donde la narrativa visual es la clave para que tu marca comunique.</p>
+                <p class="s3-service-desc">Creamos contenido de la más alta calidad,<br>donde la narrativa visual es la clave<br>para que tu marca comunique.</p>
               </div>
             </div>
           </div>
