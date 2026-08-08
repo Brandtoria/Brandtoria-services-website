@@ -182,15 +182,180 @@ app.get('/', (c) => {
       pointer-events: none;
     }
 
-    /* ─── TOP BAR ───────────────────────────────────── */
-    .top-bar {
-      position: absolute;
+
+    /* ─── MAIN NAVBAR (desktop, fixed) ──────────────────── */
+    #main-navbar {
+      position: fixed;
       top: 0; left: 0; right: 0;
+      z-index: 500;
+      height: 68px;
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-      padding: clamp(20px, 3vw, 42px) clamp(24px, 4.5vw, 64px);
-      z-index: 100;
+      justify-content: space-between;
+      padding: 0 clamp(24px, 4.5vw, 64px);
+      /* Transparent blur background */
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      /* Transition for color-mode switch */
+      transition: background 0.4s ease, border-color 0.4s ease;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    /* Dark mode: navbar over dark sections */
+    #main-navbar.dark-mode {
+      background: rgba(13, 13, 13, 0.55);
+      border-bottom-color: rgba(255, 255, 255, 0.06);
+    }
+
+    /* ── Navbar Logo ── */
+    .nb-logo {
+      font-family: 'Against', serif;
+      font-size: clamp(16px, 1.8vw, 24px);
+      font-weight: normal;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      display: flex;
+      align-items: baseline;
+      color: #1a1a1a;
+      transition: color 0.3s ease;
+      flex-shrink: 0;
+    }
+    #main-navbar.dark-mode .nb-logo { color: #fff; }
+    .nb-logo .nb-accent { color: #E8321A; }
+
+    /* ── Nav items container ── */
+    .nb-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(18px, 2.8vw, 44px);
+    }
+
+    /* ── Single nav item ── */
+    .nb-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      text-decoration: none;
+      position: relative;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    /* Top row: circle + text */
+    .nb-item-top {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding-bottom: 5px;
+    }
+
+    /* Circle icon */
+    .nb-circle {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      border: 1.5px solid #E8321A;
+      background: transparent;
+      flex-shrink: 0;
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+
+    /* Fill circle when active */
+    .nb-item.active .nb-circle,
+    .nb-item:hover .nb-circle {
+      background: #E8321A;
+      transform: scale(1.15);
+    }
+
+    /* Label */
+    .nb-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(10px, 0.85vw, 13px);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #1a1a1a;
+      white-space: nowrap;
+      transition: color 0.3s ease;
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Hover text animation: slide-up reveal */
+    .nb-label::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 100%;
+      left: 0;
+      color: #E8321A;
+      transform: translateY(0%);
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease;
+      opacity: 0;
+      white-space: nowrap;
+    }
+
+    .nb-item:hover .nb-label {
+      animation: nbLabelUp 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes nbLabelUp {
+      0%   { transform: translateY(0);     opacity: 1; }
+      49%  { transform: translateY(-100%); opacity: 0; }
+      50%  { transform: translateY( 100%); opacity: 0; color: #E8321A; }
+      100% { transform: translateY(0);     opacity: 1; color: #E8321A; }
+    }
+
+    /* After hover ends: reset */
+    .nb-item:not(:hover) .nb-label {
+      animation: nbLabelDown 0.22s ease forwards;
+    }
+
+    @keyframes nbLabelDown {
+      0%   { color: #E8321A; }
+      100% { color: inherit; }
+    }
+
+    /* Dark mode label */
+    #main-navbar.dark-mode .nb-label { color: #fff; }
+    #main-navbar.dark-mode .nb-item:hover .nb-label,
+    #main-navbar.dark-mode .nb-item.active .nb-label { color: #E8321A; }
+
+    /* Orange underline */
+    .nb-underline {
+      height: 1.5px;
+      width: 100%;
+      background: #E8321A;
+      border-radius: 1px;
+      display: block;
+    }
+
+    /* ── Hide desktop navbar on mobile ── */
+    @media (max-width: 768px) {
+      #main-navbar .nb-links { display: none; }
+    }
+
+    /* ─── TOP BAR (hamburger only — now inside main-navbar on mobile) ─── */
+    /* ─── TOP BAR (hamburger wrapper, mobile only) ──────── */
+    .top-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 68px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(24px, 4.5vw, 64px);
+      z-index: 500;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    @media (max-width: 768px) {
+      .top-bar { display: flex; }
+      #main-navbar { display: none; }
     }
 
     .nav-logo {
@@ -212,6 +377,7 @@ app.get('/', (c) => {
     }
 
     /* ─── HAMBURGER ─────────────────────────────────── */
+    @media (min-width: 769px) { .hamburger { display: none !important; } }
     .hamburger {
       width: 48px;
       height: 48px;
@@ -274,7 +440,7 @@ app.get('/', (c) => {
     /* ─── HERO BRAND ────────────────────────────────── */
     .hero-brand {
       position: absolute;
-      top: clamp(60px, 9vh, 110px);
+      top: clamp(90px, 13vh, 140px);
       left: clamp(24px, 4.5vw, 64px);
       z-index: 10;
       opacity: 0;
@@ -308,7 +474,7 @@ app.get('/', (c) => {
     /* ─── DECO SLASHES TOP RIGHT ─────────────────────── */
     .deco-slash {
       position: absolute;
-      top: clamp(24px, 3.5vw, 50px);
+      top: clamp(80px, 10vw, 90px);
       right: clamp(90px, 9vw, 150px);
       display: flex;
       flex-direction: column;
@@ -1069,6 +1235,59 @@ app.get('/', (c) => {
   <!-- ══════════ SITE ══════════ -->
   <div id="site">
 
+    <!-- ══════════ MAIN NAVBAR ══════════ -->
+    <nav id="main-navbar" role="navigation" aria-label="Navegación principal">
+      <!-- Logo -->
+      <a class="nb-logo" href="#">
+        BRANDTOR<span class="nb-accent">I</span><span class="nb-accent">A</span><span class="nb-accent">.</span>
+      </a>
+
+      <!-- Desktop nav links -->
+      <div class="nb-links">
+
+        <a class="nb-item active" href="#" data-section="nosotros">
+          <div class="nb-item-top">
+            <span class="nb-circle"></span>
+            <span class="nb-label" data-text="NOSOTROS">NOSOTROS</span>
+          </div>
+          <span class="nb-underline"></span>
+        </a>
+
+        <a class="nb-item" href="#section-servicios" data-section="servicios">
+          <div class="nb-item-top">
+            <span class="nb-circle"></span>
+            <span class="nb-label" data-text="SERVICIOS">SERVICIOS</span>
+          </div>
+          <span class="nb-underline"></span>
+        </a>
+
+        <a class="nb-item" href="#" data-section="portafolio">
+          <div class="nb-item-top">
+            <span class="nb-circle"></span>
+            <span class="nb-label" data-text="PORTAFOLIO">PORTAFOLIO</span>
+          </div>
+          <span class="nb-underline"></span>
+        </a>
+
+        <a class="nb-item" href="#" data-section="adn">
+          <div class="nb-item-top">
+            <span class="nb-circle"></span>
+            <span class="nb-label" data-text="TU ADN">TU ADN</span>
+          </div>
+          <span class="nb-underline"></span>
+        </a>
+
+        <a class="nb-item" href="#" data-section="contacto">
+          <div class="nb-item-top">
+            <span class="nb-circle"></span>
+            <span class="nb-label" data-text="CONTACTO">CONTACTO</span>
+          </div>
+          <span class="nb-underline"></span>
+        </a>
+
+      </div>
+    </nav>
+
     <div id="nav-overlay">
       <a class="nav-item" href="#">Visión</a>
       <a class="nav-item" href="#">Servicios</a>
@@ -1081,6 +1300,9 @@ app.get('/', (c) => {
       <div class="hero-overlay"></div>
 
       <div class="top-bar">
+        <a class="nb-logo" href="#" style="position:relative;z-index:501;">
+          BRANDTOR<span class="nb-accent">I</span><span class="nb-accent">A</span><span class="nb-accent">.</span>
+        </a>
         <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false">
           <span></span>
           <span></span>
@@ -1588,6 +1810,82 @@ app.get('/', (c) => {
         loadScript('https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js', function() {
           initS3Animations();
         });
+      });
+    })();
+
+
+    /* ── MAIN NAVBAR: dark/light mode + active section tracking ── */
+    (function () {
+      var navbar = document.getElementById('main-navbar');
+      var nbItems = document.querySelectorAll('.nb-item');
+
+      /* ── Smooth scroll on nav click ── */
+      nbItems.forEach(function(item) {
+        item.addEventListener('click', function(e) {
+          var href = item.getAttribute('href');
+          if (href && href !== '#' && href.startsWith('#')) {
+            e.preventDefault();
+            var target = document.querySelector(href);
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+        });
+      });
+
+      /* ── Dark sections: hero + servicios have dark/image backgrounds ── */
+      var darkSections = ['hero', 'section-servicios'];
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var id = entry.target.id;
+            if (darkSections.indexOf(id) !== -1) {
+              navbar.classList.add('dark-mode');
+            } else {
+              navbar.classList.remove('dark-mode');
+            }
+          }
+        });
+      }, {
+        threshold: 0.35  /* section must be 35% in view to trigger */
+      });
+
+      /* Observe all top-level sections */
+      ['hero', 'section-innovar', 'section-servicios'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+
+      /* ── Active item by scroll position ── */
+      var sectionMap = {
+        'hero':               null,
+        'section-innovar':    'nosotros',
+        'section-servicios':  'servicios'
+      };
+
+      var scrollObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var activeKey = sectionMap[entry.target.id];
+            nbItems.forEach(function(item) {
+              var sec = item.getAttribute('data-section');
+              if (activeKey && sec === activeKey) {
+                item.classList.add('active');
+              } else if (!activeKey) {
+                /* hero — no active item */
+                item.classList.remove('active');
+              } else {
+                item.classList.remove('active');
+              }
+            });
+          }
+        });
+      }, { threshold: 0.5 });
+
+      ['hero', 'section-innovar', 'section-servicios'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) scrollObserver.observe(el);
       });
     })();
 
