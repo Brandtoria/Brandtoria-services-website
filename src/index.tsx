@@ -947,6 +947,30 @@ app.get('/', (c) => {
       letter-spacing: -0.02em;
       text-align: left;
     }
+    .s3-service-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(11px, 1.0vw, 14px);
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.55;
+      letter-spacing: 0;
+      text-align: left;
+      margin-top: clamp(6px, 0.8vh, 10px);
+      /* Prevent overflow on narrow viewports — inherits overlay width naturally */
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    /* ── Responsive desc size ── */
+    @media (max-width: 1024px) {
+      .s3-service-desc { font-size: clamp(10px, 1.1vw, 13px); }
+    }
+    @media (max-width: 768px) {
+      .s3-service-desc { font-size: clamp(10px, 2.2vw, 13px); }
+    }
+    @media (max-width: 480px) {
+      .s3-service-desc { font-size: clamp(9px, 2.5vw, 11px); }
+    }
 
     /* ── Nav — top-right, same as before ── */
     .s3-nav {
@@ -1232,6 +1256,7 @@ app.get('/', (c) => {
               <div class="s3-title-block">
                 <span class="s3-title-num">(01)</span>
                 <h2 class="s3-title-text">Instalación de<br>Agentes de AI</h2>
+                <p class="s3-service-desc">Instalamos agentes de AI, que aprenden de ti y tu negocio para: Decidir. Ejecutar. Conectar con tus herramientas y Terminar las tareas por ti — mientras duermes.</p>
               </div>
             </div>
           </div>
@@ -1263,6 +1288,7 @@ app.get('/', (c) => {
               <div class="s3-title-block">
                 <span class="s3-title-num">(02)</span>
                 <h2 class="s3-title-text">Diseño Web<br>UX / UI</h2>
+                <p class="s3-service-desc">Desarrollamos experiencias digitales cuidadosamente diseñadas para maximizar la participación y mejorar la usabilidad. Con integración de Agentes AI.</p>
               </div>
             </div>
           </div>
@@ -1294,6 +1320,7 @@ app.get('/', (c) => {
               <div class="s3-title-block">
                 <span class="s3-title-num">(03)</span>
                 <h2 class="s3-title-text">Branding &amp;<br>Identidad Visual</h2>
+                <p class="s3-service-desc">Identidades visuales estructuradas y diseñadas para posicionar, diferenciar y escalar con precisión y claridad.</p>
               </div>
             </div>
           </div>
@@ -1325,6 +1352,7 @@ app.get('/', (c) => {
               <div class="s3-title-block">
                 <span class="s3-title-num">(04)</span>
                 <h2 class="s3-title-text">Foto &amp;<br>Video</h2>
+                <p class="s3-service-desc">Creamos contenido de la más alta calidad, donde la narrativa visual es la clave para que tu marca comunique.</p>
               </div>
             </div>
           </div>
