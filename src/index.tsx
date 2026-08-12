@@ -2116,22 +2116,20 @@ app.get('/', (c) => {
         });
       });
 
-      // ── S4: Proceso de Trabajo — cada card con su propio ScrollTrigger ───────
+      // ── S4: Proceso de Trabajo — trigger = la propia card ─────────────────
       function initS4() {
         var section = document.getElementById('section-proceso');
         if (!section) return;
         var cards = section.querySelectorAll('.s4-card');
         if (!cards.length) return;
 
-        /* Cada card empieza invisible y baja desde yOffset px.
-           "start" escalonado (por card) = stagger real en scrub mode.
-           delay se ignora en scrub — hay que mover el punto de inicio. */
-        var yOffsets  = [90, 50, 130, 70, 110];
-        var starts    = ['top 95%', 'top 87%', 'top 79%', 'top 71%', 'top 63%'];
-        var endAll    = 'top 10%';
+        /* Trigger = cada card individualmente.
+           Así la animación empieza exactamente cuando ESA card entra al viewport,
+           no cuando entra el top de la sección (que puede ser mucho antes). */
+        var yOffsets = [60, 40, 80, 40, 60];
 
-        /* Estado inicial: oculto */
-        gsap.set(cards, { opacity: 0, y: function(i){ return yOffsets[i] || 80; } });
+        /* Estado inicial: invisible + desplazada hacia abajo */
+        gsap.set(cards, { opacity: 0, y: function(i){ return yOffsets[i]; } });
 
         cards.forEach(function(card, i) {
           gsap.to(card, {
@@ -2139,10 +2137,10 @@ app.get('/', (c) => {
             y: 0,
             ease: 'power2.out',
             scrollTrigger: {
-              trigger: section,
-              start: starts[i],
-              end: endAll,
-              scrub: 1,
+              trigger: card,          /* ← trigger = la propia card */
+              start: 'top 88%',       /* cuando el top de la card llega al 88% del viewport */
+              end: 'top 30%',         /* termina cuando sube al 30% */
+              scrub: 0.8,
               invalidateOnRefresh: true
             }
           });
