@@ -1085,8 +1085,11 @@ app.get('/', (c) => {
       line-height: 0.9;
       letter-spacing: -0.04em;
       display: block;
+      transition: color 0.25s ease;
       margin-bottom: clamp(16px, 2.5vw, 32px);
     }
+
+    .s4-card:hover .s4-num { color: #ec6035; }
 
     /* Title */
     .s4-card-title {
