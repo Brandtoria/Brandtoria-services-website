@@ -979,20 +979,20 @@ app.get('/', (c) => {
       z-index: 0;
     }
     .s4-blob-orange {
-      width: clamp(320px, 45vw, 600px);
-      height: clamp(320px, 45vw, 600px);
+      width: clamp(400px, 55vw, 700px);
+      height: clamp(400px, 55vw, 700px);
       background: #ec6035;
-      opacity: 0.22;
-      top: -8%;
-      right: -6%;
+      opacity: 0.38;
+      top: -12%;
+      right: -8%;
     }
     .s4-blob-blue {
-      width: clamp(260px, 38vw, 500px);
-      height: clamp(260px, 38vw, 500px);
+      width: clamp(340px, 48vw, 620px);
+      height: clamp(340px, 48vw, 620px);
       background: #0404bf;
-      opacity: 0.14;
-      bottom: 0%;
-      left: -4%;
+      opacity: 0.32;
+      bottom: -5%;
+      left: -6%;
     }
 
     /* ── Header ── */
@@ -1066,23 +1066,14 @@ app.get('/', (c) => {
       padding-top: clamp(30px, 4vw, 48px);
     }
 
-    /* Card itself */
+    /* Card itself — GSAP animates opacity/translateY, no CSS transition needed */
     .s4-card {
       background: #fff;
       border: 1px solid #e5e5e5;
       border-radius: 20px;
       padding: clamp(20px, 2.4vw, 32px) clamp(16px, 2vw, 28px) clamp(24px, 3vw, 36px);
       box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-      /* Animation start state */
-      opacity: 0;
-      transform: translateY(60px);
-      transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-                  transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
       will-change: transform, opacity;
-    }
-    .s4-card.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     /* Big number */
@@ -2126,30 +2117,59 @@ app.get('/', (c) => {
 
 
 
-    /* ── SECTION 4: Proceso de Trabajo — card entrance animation ── */
+    /* ── SECTION 4: Proceso de Trabajo — GSAP scroll-driven scrub animation ── */
     (function () {
-      var cards = document.querySelectorAll('.s4-card');
-      if (!cards.length) return;
+      function initS4() {
+        var gsap = window.gsap;
+        var ST   = window.ScrollTrigger;
+        if (!gsap || !ST) return;
+        gsap.registerPlugin(ST);
 
-      var triggered = false;
+        var section = document.getElementById('section-proceso');
+        if (!section) return;
 
-      var obs = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting && !triggered) {
-            triggered = true;
-            cards.forEach(function(card) {
-              var delay = parseInt(card.getAttribute('data-s4-delay') || '0', 10);
-              setTimeout(function() {
-                card.classList.add('visible');
-              }, delay);
-            });
-            obs.disconnect();
-          }
+        var cards = section.querySelectorAll('.s4-card');
+        if (!cards.length) return;
+
+        /* Each card scrubs from translateY(90px)+opacity(0) → natural position
+           The stagger offset (delay index × 40px) creates the fan effect:
+           card 0 travels 90px, card 1→50px, card 2→130px, card 3→70px, card 4→110px
+           (alternating like Uxoral: odd cards come from below, even from further below) */
+        var yOffsets = [90, 50, 130, 70, 110];
+
+        cards.forEach(function(card, i) {
+          gsap.fromTo(card,
+            { opacity: 0, y: yOffsets[i] || 80 },
+            {
+              opacity: 1,
+              y: 0,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: section,
+                start: 'top 85%',
+                end: 'top 20%',
+                scrub: 1.2,
+                invalidateOnRefresh: true
+              },
+              delay: i * 0.06   /* slight stagger within same scrub window */
+            }
+          );
         });
-      }, { threshold: 0.15 });
+      }
 
-      var section = document.getElementById('section-proceso');
-      if (section) obs.observe(section);
+      /* Reuse GSAP if already loaded by S3, otherwise chain-load */
+      if (window.gsap && window.ScrollTrigger) {
+        initS4();
+      } else {
+        function waitForGsap(attempts) {
+          if (window.gsap && window.ScrollTrigger) {
+            initS4();
+          } else if (attempts > 0) {
+            setTimeout(function() { waitForGsap(attempts - 1); }, 200);
+          }
+        }
+        waitForGsap(20);
+      }
     })();
 
     /* ── MAIN NAVBAR: dark/light mode + active section tracking ── */
