@@ -959,6 +959,195 @@ app.get('/', (c) => {
       .card-quote      { grid-column: 1; grid-row: auto; }
       .card-contact    { grid-column: 1; grid-row: auto; }
     }
+
+    /* ═══════════════════════════════════════════════
+       SECTION 4 — PROCESO DE TRABAJO
+    ═══════════════════════════════════════════════ */
+    #section-proceso {
+      position: relative;
+      background: #fff;
+      overflow: hidden;
+      padding: clamp(64px, 9vh, 112px) clamp(24px, 5vw, 80px) clamp(80px, 11vh, 140px);
+    }
+
+    /* ── Blobs de fondo ── */
+    .s4-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(110px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .s4-blob-orange {
+      width: clamp(320px, 45vw, 600px);
+      height: clamp(320px, 45vw, 600px);
+      background: #ec6035;
+      opacity: 0.22;
+      top: -8%;
+      right: -6%;
+    }
+    .s4-blob-blue {
+      width: clamp(260px, 38vw, 500px);
+      height: clamp(260px, 38vw, 500px);
+      background: #0404bf;
+      opacity: 0.14;
+      bottom: 0%;
+      left: -4%;
+    }
+
+    /* ── Header ── */
+    .s4-header {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin-bottom: clamp(48px, 6vh, 80px);
+    }
+
+    .s4-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .s4-slashes {
+      display: flex;
+      gap: 3px;
+    }
+    .s4-slashes span {
+      display: block;
+      width: 3px;
+      height: clamp(18px, 2.2vw, 28px);
+      background: #ff4808;
+      border-radius: 2px;
+      transform: skewX(-12deg);
+    }
+
+    .s4-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(22px, 2.8vw, 40px);
+      font-weight: 700;
+      color: #0d0d0d;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .s4-body {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(14px, 1.2vw, 17px);
+      font-weight: 400;
+      color: #3a3a3a;
+      line-height: 1.65;
+      margin-top: 18px;
+      max-width: 640px;
+    }
+    .s4-body .s4-accent { color: #ff4808; font-weight: 500; }
+
+    /* ── Cards track ── */
+    .s4-track-outer {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Desktop: flex row with stagger */
+    .s4-cards {
+      display: flex;
+      align-items: flex-start;
+      gap: clamp(12px, 1.8vw, 22px);
+    }
+
+    /* Each card wrapper handles vertical stagger */
+    .s4-card-wrap {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+    /* Even cards pushed down */
+    .s4-card-wrap:nth-child(even) {
+      padding-top: clamp(30px, 4vw, 48px);
+    }
+
+    /* Card itself */
+    .s4-card {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 20px;
+      padding: clamp(20px, 2.4vw, 32px) clamp(16px, 2vw, 28px) clamp(24px, 3vw, 36px);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      /* Animation start state */
+      opacity: 0;
+      transform: translateY(60px);
+      transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform, opacity;
+    }
+    .s4-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Big number */
+    .s4-num {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(80px, 10vw, 150px);
+      font-weight: 900;
+      color: #0d0d0d;
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      display: block;
+      margin-bottom: clamp(16px, 2.5vw, 32px);
+    }
+
+    /* Title */
+    .s4-card-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(13px, 1.1vw, 16px);
+      font-weight: 700;
+      color: #0d0d0d;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    /* Description */
+    .s4-card-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(12px, 0.95vw, 14px);
+      font-weight: 400;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    /* ── Mobile carousel ── */
+    @media (max-width: 768px) {
+      .s4-track-outer {
+        margin: 0 clamp(-24px, -5vw, -24px);
+        padding: 0 clamp(24px, 5vw, 24px);
+        overflow-x: auto;
+        overflow-y: visible;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+      .s4-track-outer::-webkit-scrollbar { display: none; }
+
+      .s4-cards {
+        flex-wrap: nowrap;
+        width: max-content;
+        gap: 14px;
+        padding-bottom: 16px;
+      }
+
+      .s4-card-wrap {
+        flex: 0 0 72vw;
+        max-width: 280px;
+        scroll-snap-align: start;
+      }
+
+      /* Remove stagger on mobile */
+      .s4-card-wrap:nth-child(even) { padding-top: 0; }
+
+      .s4-num { font-size: clamp(72px, 18vw, 100px); }
+    }
+
     /* ═══════════════════════════════════════════════
        SECTION 3 — SERVICIOS  (Altrum scroll-stack)
     ═══════════════════════════════════════════════ */
@@ -1629,6 +1818,80 @@ app.get('/', (c) => {
 
     </section>
 
+    <!-- ══════════════════════════════════════════════
+         SECTION 4 — PROCESO DE TRABAJO
+    ══════════════════════════════════════════════ -->
+    <section id="section-proceso">
+
+      <!-- Background blobs -->
+      <div class="s4-blob s4-blob-orange"></div>
+      <div class="s4-blob s4-blob-blue"></div>
+
+      <!-- Header -->
+      <div class="s4-header">
+        <div class="s4-eyebrow">
+          <div class="s4-slashes"><span></span><span></span></div>
+          <h2 class="s4-title">Proceso de Trabajo</h2>
+        </div>
+        <p class="s4-body">
+          <span class="s4-accent">Integramos la IA</span> en cada etapa del proceso: diagnóstico,
+          Metodología &amp; Estrategia, Diseño &amp; Exploración, Contrucción &amp; Lanzamiento,
+          Optimización &amp; Escala. <span class="s4-accent">No como atajo — como amplificador al criterio
+          humano.</span> Lo que antes tomaba semanas, hoy días, horas o minutos — con más opciones,
+          más precisión, y con los más altos estándares.
+        </p>
+      </div>
+
+      <!-- Cards -->
+      <div class="s4-track-outer" id="s4Track">
+        <div class="s4-cards">
+
+          <div class="s4-card-wrap">
+            <div class="s4-card" data-s4-delay="0">
+              <span class="s4-num">1</span>
+              <div class="s4-card-title">Descubrimiento de tu ADN</div>
+              <p class="s4-card-desc">Profundizamos en tu marca, audiencia, objetivos, necesidades.</p>
+            </div>
+          </div>
+
+          <div class="s4-card-wrap">
+            <div class="s4-card" data-s4-delay="100">
+              <span class="s4-num">2</span>
+              <div class="s4-card-title">Metodología &amp; Estrategia</div>
+              <p class="s4-card-desc">Definimos una dirección clara y estratégica, para alcanzar metas medibles y escalables.</p>
+            </div>
+          </div>
+
+          <div class="s4-card-wrap">
+            <div class="s4-card" data-s4-delay="200">
+              <span class="s4-num">3</span>
+              <div class="s4-card-title">Diseño &amp; Exploración</div>
+              <p class="s4-card-desc">Observamos, investigamos, diseñamos, experimentamos y exploramos.</p>
+            </div>
+          </div>
+
+          <div class="s4-card-wrap">
+            <div class="s4-card" data-s4-delay="300">
+              <span class="s4-num">4</span>
+              <div class="s4-card-title">Construcción &amp; Lanzamiento</div>
+              <p class="s4-card-desc">Construimos, iteramos, medimos y lo lanzamos al mercado, cuidando cada detalle.</p>
+            </div>
+          </div>
+
+          <div class="s4-card-wrap">
+            <div class="s4-card" data-s4-delay="400">
+              <span class="s4-num">5</span>
+              <div class="s4-card-title">Optimización &amp; Escala</div>
+              <p class="s4-card-desc">Medimos el rendimiento, lo perfeccionamos continuamente y ayudamos a que tu producto escale.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+
   </div>
 
   <script>
@@ -1861,6 +2124,33 @@ app.get('/', (c) => {
       });
     })();
 
+
+
+    /* ── SECTION 4: Proceso de Trabajo — card entrance animation ── */
+    (function () {
+      var cards = document.querySelectorAll('.s4-card');
+      if (!cards.length) return;
+
+      var triggered = false;
+
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !triggered) {
+            triggered = true;
+            cards.forEach(function(card) {
+              var delay = parseInt(card.getAttribute('data-s4-delay') || '0', 10);
+              setTimeout(function() {
+                card.classList.add('visible');
+              }, delay);
+            });
+            obs.disconnect();
+          }
+        });
+      }, { threshold: 0.15 });
+
+      var section = document.getElementById('section-proceso');
+      if (section) obs.observe(section);
+    })();
 
     /* ── MAIN NAVBAR: dark/light mode + active section tracking ── */
     (function () {
