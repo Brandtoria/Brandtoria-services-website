@@ -2128,7 +2128,7 @@ app.get('/', (c) => {
            Cards 2,4   (índice 1,3)   → transform-origin: top right, rotZ desde -8° a 0° */
         cards.forEach(function(card, i) {
           var isLeft  = (i % 2 === 0);          /* 0,2,4 = top left */
-          var startRot = isLeft ? 8 : -8;        /* grados iniciales */
+          var startRot = isLeft ? 18 : -18;       /* grados iniciales — más pronunciado */
           var origin   = isLeft ? 'top left' : 'top right';
 
           /* Estado inicial: rotada, sin cambio de opacidad */
@@ -2136,12 +2136,12 @@ app.get('/', (c) => {
 
           gsap.to(card, {
             rotation: 0,
-            ease: 'power2.out',
+            ease: 'none',
             scrollTrigger: {
               trigger: card,
-              start: 'top 88%',
-              end: 'top 30%',
-              scrub: 0.8,
+              start: 'top 95%',   /* empieza antes (card más abajo en viewport) */
+              end: 'top 5%',      /* termina casi en el top — recorrido largo */
+              scrub: 1.5,
               invalidateOnRefresh: true
             }
           });
