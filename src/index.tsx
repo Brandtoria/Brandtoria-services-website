@@ -1030,7 +1030,7 @@ app.get('/', (c) => {
     .s3-stack {
       position: relative;
       /* 4 cards × 85vh each = 340vh scroll range */
-      height: calc(4 * 85vh);
+      height: calc(5 * 85vh);
     }
 
     /* ── Individual card — sticky at top, 85vh tall, same as original ── */
@@ -1044,6 +1044,7 @@ app.get('/', (c) => {
     .s3-card-wrap:nth-child(2) { z-index: 2; }
     .s3-card-wrap:nth-child(3) { z-index: 3; }
     .s3-card-wrap:nth-child(4) { z-index: 4; }
+    .s3-card-wrap:nth-child(5) { z-index: 5; }
 
     /* The actual card visual — inset inside wrap for the "grow from small" effect */
     .s3-card {
@@ -1186,7 +1187,7 @@ app.get('/', (c) => {
       #section-servicios { padding: 20px 20px 0; }
       .s3-header { grid-template-columns: 1fr; }
       .s3-header-title-block { white-space: normal; }
-      .s3-stack { height: calc(4 * 70vh); }
+      .s3-stack { height: calc(5 * 70vh); }
       .s3-card-wrap { height: 70vh; }
       .s3-title-text { font-size: clamp(14px, 4.5vw, 28px); }
       .s3-title-num  { font-size: clamp(10px, 2vw, 14px); }
@@ -1194,7 +1195,7 @@ app.get('/', (c) => {
       .s3-nav-num, .s3-nav-label { font-size: clamp(11px, 2.5vw, 15px); }
     }
     @media (max-width: 480px) {
-      .s3-stack { height: calc(4 * 60vh); }
+      .s3-stack { height: calc(5 * 60vh); }
       .s3-card-wrap { height: 60vh; }
       .s3-title-text { font-size: clamp(12px, 5vw, 22px); }
       .s3-title-num  { font-size: 10px; }
@@ -1464,6 +1465,10 @@ app.get('/', (c) => {
                 <span class="s3-nav-num">(04)</span>
                 <span class="s3-nav-label">Foto &amp; Video</span>
               </button>
+              <button class="s3-nav-item" data-card="4">
+                <span class="s3-nav-num">(05)</span>
+                <span class="s3-nav-label">Marketing Digital</span>
+              </button>
             </nav>
             <div class="s3-overlay">
               <div class="s3-title-block">
@@ -1495,6 +1500,10 @@ app.get('/', (c) => {
               <button class="s3-nav-item" data-card="3">
                 <span class="s3-nav-num">(04)</span>
                 <span class="s3-nav-label">Foto &amp; Video</span>
+              </button>
+              <button class="s3-nav-item" data-card="4">
+                <span class="s3-nav-num">(05)</span>
+                <span class="s3-nav-label">Marketing Digital</span>
               </button>
             </nav>
             <div class="s3-overlay">
@@ -1528,6 +1537,10 @@ app.get('/', (c) => {
                 <span class="s3-nav-num">(04)</span>
                 <span class="s3-nav-label">Foto &amp; Video</span>
               </button>
+              <button class="s3-nav-item" data-card="4">
+                <span class="s3-nav-num">(05)</span>
+                <span class="s3-nav-label">Marketing Digital</span>
+              </button>
             </nav>
             <div class="s3-overlay">
               <div class="s3-title-block">
@@ -1560,12 +1573,53 @@ app.get('/', (c) => {
                 <span class="s3-nav-num">(04)</span>
                 <span class="s3-nav-label">Foto &amp; Video</span>
               </button>
+              <button class="s3-nav-item" data-card="4">
+                <span class="s3-nav-num">(05)</span>
+                <span class="s3-nav-label">Marketing Digital</span>
+              </button>
             </nav>
             <div class="s3-overlay">
               <div class="s3-title-block">
                 <span class="s3-title-num">(04)</span>
                 <h2 class="s3-title-text">Foto &amp;<br>Video</h2>
                 <p class="s3-service-desc">Creamos contenido de la más alta calidad,<br>donde la narrativa visual es la clave<br>para que tu marca comunique.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- ── Card 05: Marketing Digital ── -->
+        <div class="s3-card-wrap" data-s3-card="4">
+          <div class="s3-card">
+            <img class="s3-photo" src="/images/s3-marketing-digital.png" alt="Marketing Digital" />
+            <nav class="s3-nav">
+              <button class="s3-nav-item" data-card="0">
+                <span class="s3-nav-num">(01)</span>
+                <span class="s3-nav-label">Agentes AI</span>
+              </button>
+              <button class="s3-nav-item" data-card="1">
+                <span class="s3-nav-num">(02)</span>
+                <span class="s3-nav-label">Diseño Web UX/UI</span>
+              </button>
+              <button class="s3-nav-item" data-card="2">
+                <span class="s3-nav-num">(03)</span>
+                <span class="s3-nav-label">Branding</span>
+              </button>
+              <button class="s3-nav-item" data-card="3">
+                <span class="s3-nav-num">(04)</span>
+                <span class="s3-nav-label">Foto &amp; Video</span>
+              </button>
+              <button class="s3-nav-item active" data-card="4">
+                <span class="s3-nav-num">(05)</span>
+                <span class="s3-nav-label">Marketing Digital</span>
+              </button>
+            </nav>
+            <div class="s3-overlay">
+              <div class="s3-title-block">
+                <span class="s3-title-num">(05)</span>
+                <h2 class="s3-title-text">Marketing<br>Digital</h2>
+                <p class="s3-service-desc">Estrategias que conectan tu marca<br>con las personas correctas: contenido,<br>redes sociales, pauta y métricas que<br>convierten audiencia en clientes reales.</p>
               </div>
             </div>
           </div>
