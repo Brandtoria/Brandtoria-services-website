@@ -2107,68 +2107,46 @@ app.get('/', (c) => {
         });
       }
 
-      // ── Chain-load GSAP → ScrollTrigger → init ───────────────────────────
+      // ── Chain-load GSAP → ScrollTrigger → init S3 + S4 ────────────────────
       loadScript('https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js', function() {
         loadScript('https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js', function() {
+          gsap.registerPlugin(ScrollTrigger);
           initS3Animations();
+          initS4();
         });
       });
-    })();
 
-
-
-    /* ── SECTION 4: Proceso de Trabajo — GSAP scroll-driven scrub animation ── */
-    (function () {
+      // ── S4: Proceso de Trabajo — cada card con su propio ScrollTrigger ───────
       function initS4() {
-        var gsap = window.gsap;
-        var ST   = window.ScrollTrigger;
-        if (!gsap || !ST) return;
-        gsap.registerPlugin(ST);
-
         var section = document.getElementById('section-proceso');
         if (!section) return;
-
         var cards = section.querySelectorAll('.s4-card');
         if (!cards.length) return;
 
-        /* Each card scrubs from translateY(90px)+opacity(0) → natural position
-           The stagger offset (delay index × 40px) creates the fan effect:
-           card 0 travels 90px, card 1→50px, card 2→130px, card 3→70px, card 4→110px
-           (alternating like Uxoral: odd cards come from below, even from further below) */
-        var yOffsets = [90, 50, 130, 70, 110];
+        /* Cada card empieza invisible y baja desde yOffset px.
+           "start" escalonado (por card) = stagger real en scrub mode.
+           delay se ignora en scrub — hay que mover el punto de inicio. */
+        var yOffsets  = [90, 50, 130, 70, 110];
+        var starts    = ['top 95%', 'top 87%', 'top 79%', 'top 71%', 'top 63%'];
+        var endAll    = 'top 10%';
+
+        /* Estado inicial: oculto */
+        gsap.set(cards, { opacity: 0, y: function(i){ return yOffsets[i] || 80; } });
 
         cards.forEach(function(card, i) {
-          gsap.fromTo(card,
-            { opacity: 0, y: yOffsets[i] || 80 },
-            {
-              opacity: 1,
-              y: 0,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: section,
-                start: 'top 85%',
-                end: 'top 20%',
-                scrub: 1.2,
-                invalidateOnRefresh: true
-              },
-              delay: i * 0.06   /* slight stagger within same scrub window */
+          gsap.to(card, {
+            opacity: 1,
+            y: 0,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: section,
+              start: starts[i],
+              end: endAll,
+              scrub: 1,
+              invalidateOnRefresh: true
             }
-          );
+          });
         });
-      }
-
-      /* Reuse GSAP if already loaded by S3, otherwise chain-load */
-      if (window.gsap && window.ScrollTrigger) {
-        initS4();
-      } else {
-        function waitForGsap(attempts) {
-          if (window.gsap && window.ScrollTrigger) {
-            initS4();
-          } else if (attempts > 0) {
-            setTimeout(function() { waitForGsap(attempts - 1); }, 200);
-          }
-        }
-        waitForGsap(20);
       }
     })();
 
