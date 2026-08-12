@@ -1079,7 +1079,7 @@ app.get('/', (c) => {
     /* Big number */
     .s4-num {
       font-family: 'DM Sans', sans-serif;
-      font-size: clamp(80px, 10vw, 150px);
+      font-size: clamp(120px, 14vw, 210px);
       font-weight: 900;
       color: #0d0d0d;
       line-height: 0.9;
@@ -1136,7 +1136,7 @@ app.get('/', (c) => {
       /* Remove stagger on mobile */
       .s4-card-wrap:nth-child(even) { padding-top: 0; }
 
-      .s4-num { font-size: clamp(72px, 18vw, 100px); }
+      .s4-num { font-size: clamp(90px, 18vw, 120px); }
     }
 
     /* ═══════════════════════════════════════════════
