@@ -2116,30 +2116,31 @@ app.get('/', (c) => {
         });
       });
 
-      // ── S4: Proceso de Trabajo — trigger = la propia card ─────────────────
+      // ── S4: Proceso de Trabajo — rotación desde esquina al enderezarse ──────
       function initS4() {
         var section = document.getElementById('section-proceso');
         if (!section) return;
         var cards = section.querySelectorAll('.s4-card');
         if (!cards.length) return;
 
-        /* Trigger = cada card individualmente.
-           Así la animación empieza exactamente cuando ESA card entra al viewport,
-           no cuando entra el top de la sección (que puede ser mucho antes). */
-        var yOffsets = [60, 40, 80, 40, 60];
-
-        /* Estado inicial: invisible + desplazada hacia abajo */
-        gsap.set(cards, { opacity: 0, y: function(i){ return yOffsets[i]; } });
-
+        /* Patrón de rotación:
+           Cards 1,3,5 (índice 0,2,4) → transform-origin: top left,  rotZ desde +8° a 0°
+           Cards 2,4   (índice 1,3)   → transform-origin: top right, rotZ desde -8° a 0° */
         cards.forEach(function(card, i) {
+          var isLeft  = (i % 2 === 0);          /* 0,2,4 = top left */
+          var startRot = isLeft ? 8 : -8;        /* grados iniciales */
+          var origin   = isLeft ? 'top left' : 'top right';
+
+          /* Estado inicial: rotada, sin cambio de opacidad */
+          gsap.set(card, { rotation: startRot, transformOrigin: origin });
+
           gsap.to(card, {
-            opacity: 1,
-            y: 0,
+            rotation: 0,
             ease: 'power2.out',
             scrollTrigger: {
-              trigger: card,          /* ← trigger = la propia card */
-              start: 'top 88%',       /* cuando el top de la card llega al 88% del viewport */
-              end: 'top 30%',         /* termina cuando sube al 30% */
+              trigger: card,
+              start: 'top 88%',
+              end: 'top 30%',
               scrub: 0.8,
               invalidateOnRefresh: true
             }
