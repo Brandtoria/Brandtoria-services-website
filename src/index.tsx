@@ -1384,7 +1384,83 @@ app.get('/', (c) => {
       .s3-title-num  { font-size: 10px; }
     }
 
-  </style>
+  
+    /* ═══════════════════════════════════════════════════════════════
+       SECTION 5 — MÉTRICAS / STATS BAR
+    ═══════════════════════════════════════════════════════════════ */
+    #section-metrics {
+      background: #ec6035;
+      width: 100%;
+      padding: clamp(48px, 7vh, 80px) clamp(24px, 5vw, 80px);
+    }
+    .s5-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .s5-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 clamp(16px, 2.5vw, 40px);
+      position: relative;
+    }
+    .s5-col + .s5-col::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 10%; bottom: 10%;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.35);
+    }
+    .s5-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(9px, 0.75vw, 11px);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: clamp(12px, 1.8vw, 20px);
+    }
+    .s5-metric {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(52px, 7vw, 100px);
+      font-weight: 900;
+      color: #0d0d0d;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: clamp(10px, 1.5vw, 18px);
+    }
+    .s5-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(11px, 0.9vw, 14px);
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.4;
+    }
+    @media (max-width: 768px) {
+      .s5-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(32px, 6vw, 48px) 0;
+      }
+      .s5-col:nth-child(3)::before,
+      .s5-col:nth-child(2)::before { display: none; }
+      .s5-col:nth-child(even)::before {
+        display: block;
+      }
+      .s5-col:nth-child(3) {
+        border-top: 1px solid rgba(255,255,255,0.25);
+        padding-top: clamp(32px, 6vw, 48px);
+      }
+      .s5-col:nth-child(4) {
+        border-top: 1px solid rgba(255,255,255,0.25);
+        padding-top: clamp(32px, 6vw, 48px);
+      }
+      .s5-metric { font-size: clamp(48px, 14vw, 72px); }
+    }
+    </style>
 </head>
 <body>
 
@@ -1885,6 +1961,39 @@ app.get('/', (c) => {
 
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         SECTION 5 — MÉTRICAS
+    ══════════════════════════════════════════════════════════ -->
+    <section id="section-metrics">
+      <div class="s5-grid">
+
+        <div class="s5-col">
+          <span class="s5-label">Iteraciones Creativas</span>
+          <span class="s5-metric" data-s5-target="10" data-s5-suffix="x">0x</span>
+          <span class="s5-desc">vs Modo Tradicional.</span>
+        </div>
+
+        <div class="s5-col">
+          <span class="s5-label">Tiempo de Producción</span>
+          <span class="s5-metric" data-s5-target="70" data-s5-prefix="-" data-s5-suffix="%">-0%</span>
+          <span class="s5-desc">Sin bajar el Estándar.</span>
+        </div>
+
+        <div class="s5-col">
+          <span class="s5-label">Rutas Exploradas</span>
+          <span class="s5-metric" data-s5-target="3" data-s5-suffix="–5">0–5</span>
+          <span class="s5-desc">Por proyecto, en minutos.</span>
+        </div>
+
+        <div class="s5-col">
+          <span class="s5-label">Dirección Creativa</span>
+          <span class="s5-metric" data-s5-target="1">0</span>
+          <span class="s5-desc">Siempre humana.</span>
+        </div>
+
+      </div>
+    </section>
+
 
   </div>
 
@@ -2149,6 +2258,54 @@ app.get('/', (c) => {
             }
           });
         });
+      }
+    })();
+
+
+    /* ── SECTION 5: Métricas — contador animado al entrar al viewport ── */
+    (function () {
+      function initS5() {
+        var metrics = document.querySelectorAll('.s5-metric[data-s5-target]');
+        if (!metrics.length) return;
+
+        var observed = new Set();
+
+        var io = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (!entry.isIntersecting) return;
+            var el = entry.target;
+            if (observed.has(el)) return;
+            observed.add(el);
+            io.unobserve(el);
+
+            var target  = parseFloat(el.getAttribute('data-s5-target'));
+            var prefix  = el.getAttribute('data-s5-prefix') || '';
+            var suffix  = el.getAttribute('data-s5-suffix') || '';
+            var duration = 1400; /* ms */
+            var start    = performance.now();
+            var isInt    = Number.isInteger(target);
+
+            function tick(now) {
+              var elapsed  = now - start;
+              var progress = Math.min(elapsed / duration, 1);
+              /* easeOutExpo */
+              var ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+              var value = target * ease;
+              el.textContent = prefix + (isInt ? Math.round(value) : value.toFixed(1)) + suffix;
+              if (progress < 1) requestAnimationFrame(tick);
+              else el.textContent = prefix + (isInt ? target : target.toFixed(1)) + suffix;
+            }
+            requestAnimationFrame(tick);
+          });
+        }, { threshold: 0.4 });
+
+        metrics.forEach(function(el) { io.observe(el); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initS5);
+      } else {
+        initS5();
       }
     })();
 
