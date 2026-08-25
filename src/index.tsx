@@ -16,7 +16,7 @@ app.get('/', (c) => {
   <title>BRANDTORIA</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;0,9..40,900;1,9..40,300&family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://use.typekit.net/zds8qhj.css" />
   <style>
     /* ─── RESET ─────────────────────────────────────── */
@@ -1460,6 +1460,243 @@ app.get('/', (c) => {
       }
       .s5-metric { font-size: clamp(48px, 14vw, 72px); }
     }
+    
+    /* ═══════════════════════════════════════════════════════════════
+       SECTION 6 — SOBRE MÍ
+    ═══════════════════════════════════════════════════════════════ */
+    #section-sobre {
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+      padding: clamp(64px,9vh,112px) clamp(24px,5vw,80px) clamp(80px,11vh,140px);
+    }
+    /* blob naranja decorativo esquina inferior izquierda */
+    .s6-blob {
+      position: absolute;
+      width: clamp(300px, 40vw, 520px);
+      height: clamp(300px, 40vw, 520px);
+      border-radius: 50%;
+      background: #ec6035;
+      opacity: 0.18;
+      filter: blur(80px);
+      bottom: -10%;
+      left: -8%;
+      pointer-events: none;
+    }
+    /* header // Sobre mí */
+    .s6-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: clamp(32px, 4vw, 52px);
+    }
+    .s6-slashes {
+      display: flex;
+      gap: 3px;
+    }
+    .s6-slashes span {
+      display: block;
+      width: 3px;
+      height: clamp(18px, 2vw, 26px);
+      background: #ec6035;
+      border-radius: 2px;
+      transform: skewX(-14deg);
+    }
+    .s6-eyebrow-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(18px, 1.6vw, 24px);
+      font-weight: 700;
+      color: #1a1a1a;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-color: #1a1a1a;
+    }
+    /* 2-col grid */
+    .s6-grid {
+      display: grid;
+      grid-template-columns: 1fr 0.62fr;
+      gap: clamp(20px, 2.5vw, 36px);
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+    /* ── Columna izquierda — card ── */
+    .s6-left {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 24px;
+      padding: clamp(28px, 3vw, 44px);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(20px, 2.5vw, 32px);
+    }
+    /* cita con borde naranja */
+    .s6-quote-box {
+      position: relative;
+      border: 2px solid #ec6035;
+      border-radius: 14px;
+      padding: clamp(20px, 2.5vw, 32px) clamp(20px, 2.5vw, 32px) clamp(20px, 2.5vw, 28px);
+      margin-top: 18px;
+    }
+    .s6-quote-icon {
+      position: absolute;
+      top: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: clamp(36px, 4vw, 52px);
+      line-height: 1;
+      color: #1a1a1a;
+      background: #fff;
+      padding: 0 8px;
+      font-family: Georgia, serif;
+    }
+    .s6-quote-text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(15px, 1.25vw, 19px);
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1.45;
+      text-align: center;
+    }
+    .s6-quote-italic {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(20px, 1.7vw, 26px);
+      font-weight: 700;
+      color: #4a3fd4;
+      font-style: italic;
+    }
+    /* párrafos */
+    .s6-body p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(13px, 1vw, 15px);
+      font-weight: 400;
+      color: #3a3a3a;
+      line-height: 1.75;
+      margin: 0;
+    }
+    .s6-body p + p { margin-top: clamp(14px, 1.6vw, 20px); }
+    .s6-accent { color: #ec6035; font-weight: 700; }
+    /* ── Columna derecha — card ── */
+    .s6-right {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(12px, 1.5vw, 16px);
+    }
+    .s6-photo-card {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 24px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .s6-photo {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .s6-identity {
+      background: #ec6035;
+      padding: clamp(14px, 1.8vw, 22px) clamp(18px, 2vw, 28px);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .s6-name {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(16px, 1.4vw, 22px);
+      font-weight: 700;
+      color: #0d0d0d;
+      line-height: 1.2;
+    }
+    .s6-role {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(12px, 0.95vw, 14px);
+      font-weight: 400;
+      color: #fff;
+    }
+    /* CTA */
+    .s6-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 50px;
+      padding: clamp(14px, 1.5vw, 18px) clamp(18px, 2vw, 24px);
+      cursor: pointer;
+      text-decoration: none;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .s6-cta:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,0.09);
+      transform: translateY(-2px);
+    }
+    .s6-cta-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .s6-pulse {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ec6035;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .s6-pulse::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: #ec6035;
+      opacity: 0.3;
+      animation: s6pulse 1.8s ease-out infinite;
+    }
+    @keyframes s6pulse {
+      0%   { transform: scale(1); opacity: 0.3; }
+      70%  { transform: scale(2.2); opacity: 0; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+    .s6-cta-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(13px, 1vw, 15px);
+      font-weight: 500;
+      color: #1a1a1a;
+    }
+    .s6-cta-arrow {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1.5px solid #d0d0d0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #1a1a1a;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .s6-cta:hover .s6-cta-arrow {
+      background: #ec6035;
+      border-color: #ec6035;
+      color: #fff;
+    }
+    /* responsive */
+    @media (max-width: 860px) {
+      .s6-grid {
+        grid-template-columns: 1fr;
+      }
+      .s6-right {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .s6-photo-card { flex: 1 1 280px; }
+      .s6-cta { flex: 1 1 100%; }
+    }
     </style>
 </head>
 <body>
@@ -1991,6 +2228,64 @@ app.get('/', (c) => {
           <span class="s5-desc">Siempre humana.</span>
         </div>
 
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════
+         SECTION 6 — SOBRE MÍ
+    ══════════════════════════════════════════════════════════ -->
+    <section id="section-sobre">
+      <div class="s6-blob"></div>
+
+      <!-- header -->
+      <div class="s6-eyebrow">
+        <div class="s6-slashes"><span></span><span></span></div>
+        <span class="s6-eyebrow-title">Sobre mí</span>
+      </div>
+
+      <div class="s6-grid">
+
+        <!-- columna izquierda -->
+        <div class="s6-left">
+
+          <!-- cita destacada -->
+          <div class="s6-quote-box">
+            <span class="s6-quote-icon">&ldquo;</span>
+            <p class="s6-quote-text">
+              La tecnología sin criterio sólo replica. Catorce años
+              de experiencia es lo que hace la <span class="s6-quote-italic">diferencia.</span>
+            </p>
+          </div>
+
+          <!-- párrafos -->
+          <div class="s6-body">
+            <p><span class="s6-accent">Soy Sandra,</span> llevo catorce años construyendo marcas, sitios web y productos audiovisuales para negocios o empresas que quieren crecer con coherencia, no sólo con ruido. Empecé antes de que la inteligencia artificial fuera parte de la conversación. Hoy la uso todos los días en mis procesos. Pero después de catorce años dirigiendo proyectos, sé algo que ninguna herramienta puede saber: No se trata de inmediatez, sino de criterio, y el criterio no se automatiza y tampoco luce siempre igual.</p>
+            <p>Por eso en Brandtoria, cada proyecto empieza con un entendimiento de tu negocio como si fuera mío, antes de tocar una sola herramienta. Estoy al frente, en cada etapa del proceso, apoyándome de mis agentes de Inteligencia Artificial.</p>
+            <p>Lo humano, potenciado por IA, para negocios o empresas que quieren soluciones tecnológicas para resolver sus cuellos de botella.</p>
+          </div>
+
+        </div>
+
+        <!-- columna derecha -->
+        <div class="s6-right">
+
+          <div class="s6-photo-card">
+            <img class="s6-photo" src="/images/sandra.png" alt="Sandra LoeSarabi" />
+            <div class="s6-identity">
+              <span class="s6-name">Sandra LoeSarabi</span>
+              <span class="s6-role">Fundadora &amp; Directora Creativa</span>
+            </div>
+          </div>
+
+          <a class="s6-cta" href="#contacto">
+            <div class="s6-cta-left">
+              <span class="s6-pulse"></span>
+              <span class="s6-cta-label">Hablemos de tu proyecto.</span>
+            </div>
+            <span class="s6-cta-arrow">&#8599;</span>
+          </a>
+
+        </div>
       </div>
     </section>
 
