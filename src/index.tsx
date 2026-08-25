@@ -1542,15 +1542,16 @@ app.get('/', (c) => {
     }
     .s6-quote-icon {
       position: absolute;
-      top: -22px;
+      top: -42px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: clamp(36px, 4vw, 52px);
-      line-height: 1;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: clamp(80px, 10vw, 140px);
+      font-weight: 700;
+      line-height: 0.6;
       color: #1a1a1a;
       background: #fff;
       padding: 0 8px;
-      font-family: Georgia, serif;
     }
     .s6-quote-text {
       font-family: 'DM Sans', sans-serif;
