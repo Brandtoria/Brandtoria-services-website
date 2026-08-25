@@ -1492,16 +1492,18 @@ app.get('/', (c) => {
     }
     .s6-slashes {
       display: flex;
-      gap: 3px;
+      flex-direction: column;
+      gap: 4px;
+      flex-shrink: 0;
     }
     .s6-slashes span {
       display: block;
-      width: 3px;
-      height: clamp(18px, 2vw, 26px);
-      background: #ec6035;
+      height: 2.5px;
+      background: #E8321A;
       border-radius: 2px;
-      transform: skewX(-14deg);
     }
+    .s6-slashes span:nth-child(1) { width: 24px; }
+    .s6-slashes span:nth-child(2) { width: 18px; }
     .s6-eyebrow-title {
       font-family: 'DM Sans', sans-serif;
       font-size: clamp(18px, 1.6vw, 24px);
@@ -1559,11 +1561,14 @@ app.get('/', (c) => {
       text-align: center;
     }
     .s6-quote-italic {
-      font-family: 'Dancing Script', cursive;
-      font-size: clamp(20px, 1.7vw, 26px);
-      font-weight: 700;
-      color: #4a3fd4;
+      font-family: 'reiher-headline', serif;
       font-style: italic;
+      font-weight: 400;
+      font-size: clamp(18px, 1.55vw, 24px);
+      background: linear-gradient(90deg, #0404bf 0%, #ff4808 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     /* párrafos */
     .s6-body p {
