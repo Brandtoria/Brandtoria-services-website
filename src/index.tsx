@@ -1417,8 +1417,8 @@ app.get('/', (c) => {
     }
     .s5-label {
       font-family: 'DM Sans', sans-serif;
-      font-size: clamp(9px, 0.75vw, 11px);
-      font-weight: 700;
+      font-size: clamp(11px, 0.95vw, 14px);
+      font-weight: 800;
       letter-spacing: 0.12em;
       color: #fff;
       text-transform: uppercase;
@@ -2251,8 +2251,8 @@ app.get('/', (c) => {
             ease: 'none',
             scrollTrigger: {
               trigger: card,
-              start: 'top 95%',   /* empieza antes (card más abajo en viewport) */
-              end: 'top 5%',      /* termina casi en el top — recorrido largo */
+              start: 'top 95%',   /* empieza cuando la card entra al viewport */
+              end: 'center 60%',  /* termina cuando el centro de la card llega al 60% — ya derecha antes de llegar al centro */
               scrub: 1.5,
               invalidateOnRefresh: true
             }
