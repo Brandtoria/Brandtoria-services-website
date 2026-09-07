@@ -1718,7 +1718,9 @@ app.get('/', (c) => {
       position: relative;
       overflow: hidden;
       padding: clamp(72px, 11vh, 130px) clamp(32px, 6vw, 96px) clamp(56px, 8vh, 100px);
-      min-height: 80vh;
+      height: 100vh;
+      min-height: 600px;
+      box-sizing: border-box;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
