@@ -1749,7 +1749,7 @@ app.get('/', (c) => {
 
     /* signos de interrogación azules */
     .s7-q {
-      color: #0404bf;
+      color: #001CD2;
       font-style: normal;
     }
 
