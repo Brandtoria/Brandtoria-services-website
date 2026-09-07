@@ -1703,6 +1703,132 @@ app.get('/', (c) => {
       .s6-photo-card { flex: 1 1 280px; }
       .s6-cta { flex: 1 1 100%; }
     }
+    
+    /* ═══════════════════════════════════════════════════════════════
+       SECTION 7 — CTA FINAL
+    ═══════════════════════════════════════════════════════════════ */
+    #section-cta {
+      background: #ec6035;
+      position: relative;
+      overflow: hidden;
+      padding: clamp(72px, 11vh, 130px) clamp(32px, 6vw, 96px) clamp(56px, 8vh, 100px);
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* headline wrapper */
+    .s7-headline {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .s7-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(44px, 7.5vw, 120px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+
+    /* cada línea envuelta en overflow:hidden para el clip reveal */
+    .s7-line {
+      display: block;
+      overflow: hidden;
+      padding-bottom: 0.08em; /* evita que descenders queden cortados */
+    }
+    .s7-line-inner {
+      display: block;
+      /* estado inicial: oculto debajo */
+      transform: translateY(110%);
+      will-change: transform;
+    }
+
+    /* signos de interrogación azules */
+    .s7-q {
+      color: #0404bf;
+      font-style: normal;
+    }
+
+    /* fila inferior */
+    .s7-footer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: clamp(32px, 5vh, 64px);
+    }
+    .s7-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(12px, 1vw, 15px);
+      font-weight: 400;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.6;
+      max-width: 420px;
+      /* mismo reveal */
+      overflow: hidden;
+    }
+    .s7-sub-inner {
+      display: block;
+      transform: translateY(110%);
+      will-change: transform;
+    }
+
+    /* botón CTA */
+    .s7-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: clamp(12px, 1.2vw, 16px) clamp(20px, 2vw, 28px);
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      /* reveal */
+    }
+    .s7-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+    }
+    .s7-btn-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(11px, 0.9vw, 13px);
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: #ec6035;
+      text-transform: uppercase;
+    }
+    .s7-btn-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #ec6035;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .s7-btn:hover .s7-btn-icon { background: #d04e22; }
+    .s7-btn-inner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateY(110%);
+      will-change: transform;
+    }
+
+    @media (max-width: 768px) {
+      .s7-footer { flex-direction: column; align-items: flex-start; }
+      .s7-title { font-size: clamp(36px, 11vw, 72px); }
+    }
     </style>
 </head>
 <body>
@@ -2295,6 +2421,38 @@ app.get('/', (c) => {
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         SECTION 7 — CTA FINAL
+    ══════════════════════════════════════════════════════════ -->
+    <section id="section-cta">
+
+      <div class="s7-headline">
+        <h2 class="s7-title" id="s7Title">
+          <span class="s7-line"><span class="s7-line-inner"><span class="s7-q">¿</span>Listo para</span></span>
+          <span class="s7-line"><span class="s7-line-inner">construir algo que</span></span>
+          <span class="s7-line"><span class="s7-line-inner">conecte con tus</span></span>
+          <span class="s7-line"><span class="s7-line-inner">clientes o usuarios<span class="s7-q">?</span></span></span>
+        </h2>
+      </div>
+
+      <div class="s7-footer">
+        <p class="s7-sub">
+          <span class="s7-sub-inner">Escríbeme para saber qué necesitas — o empieza por El ADN si aún no lo tienes claro. O agenda una cita conmigo.</span>
+        </p>
+        <a class="s7-btn" href="#contacto">
+          <span class="s7-btn-inner">
+            <span class="s7-btn-label">Comienza con tu ADN</span>
+            <span class="s7-btn-icon">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                <path d="M2 11L11 2M11 2H4.5M11 2V8.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </span>
+        </a>
+      </div>
+
+    </section>
+
 
   </div>
 
@@ -2526,6 +2684,7 @@ app.get('/', (c) => {
           gsap.registerPlugin(ScrollTrigger);
           initS3Animations();
           initS4();
+          initS7();
         });
       });
 
@@ -2608,6 +2767,70 @@ app.get('/', (c) => {
       } else {
         initS5();
       }
+    })();
+
+
+    /* ── SECTION 7: CTA Final — clip-path reveal por línea con GSAP ── */
+    (function () {
+      function initS7() {
+        var section = document.getElementById('section-cta');
+        if (!section) return;
+
+        /* Todas las líneas: h2 line-inners + sub-inner + btn-inner */
+        var lineInners = section.querySelectorAll('.s7-line-inner');
+        var subInner   = section.querySelector('.s7-sub-inner');
+        var btnInner   = section.querySelector('.s7-btn-inner');
+
+        /* Estado inicial ya en CSS (translateY 110%) — GSAP lo respeta */
+        /* Animamos con gsap.to hacia translateY(0) */
+
+        /* líneas del titular — scrub suave */
+        lineInners.forEach(function(el, i) {
+          gsap.to(el, {
+            y: '0%',
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 80%',
+              end:   'top 20%',
+              scrub: false,          /* one-shot, no scrub — más dramático */
+              toggleActions: 'play none none none'
+            },
+            delay: i * 0.12,
+            duration: 0.9
+          });
+        });
+
+        /* subtexto y botón — aparecen después */
+        if (subInner) {
+          gsap.to(subInner, {
+            y: '0%',
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 65%',
+              toggleActions: 'play none none none'
+            },
+            delay: 0.1,
+            duration: 0.8
+          });
+        }
+        if (btnInner) {
+          gsap.to(btnInner, {
+            y: '0%',
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 65%',
+              toggleActions: 'play none none none'
+            },
+            delay: 0.25,
+            duration: 0.8
+          });
+        }
+      }
+
+      /* initS7 es llamado desde el callback de carga de GSAP (bloque S3) */
     })();
 
     /* ── MAIN NAVBAR: dark/light mode + active section tracking ── */
