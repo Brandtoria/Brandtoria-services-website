@@ -6,6 +6,11 @@ const app = new Hono()
 // Serve static files
 app.use('/static/*', serveStatic({ root: './public' }))
 app.use('/images/*', serveStatic({ root: './public' }))
+// Serve favicon - redirect to avoid 404 browser requests
+app.get('/favicon.ico', (c) => {
+  // Return 204 No Content to silence the browser favicon request
+  return new Response(null, { status: 204 })
+})
 
 app.get('/', (c) => {
   return c.html(`<!DOCTYPE html>
@@ -13,6 +18,7 @@ app.get('/', (c) => {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   <title>BRANDTORIA</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1742,8 +1748,7 @@ app.get('/', (c) => {
     }
     .s7-line-inner {
       display: block;
-      /* estado inicial: oculto debajo */
-      transform: translateY(110%);
+      /* estado inicial gestionado por GSAP */
       will-change: transform;
     }
 
@@ -1773,7 +1778,6 @@ app.get('/', (c) => {
     }
     .s7-sub-inner {
       display: block;
-      transform: translateY(110%);
       will-change: transform;
     }
 
@@ -1821,7 +1825,6 @@ app.get('/', (c) => {
       display: flex;
       align-items: center;
       gap: 10px;
-      transform: translateY(110%);
       will-change: transform;
     }
 
@@ -2689,6 +2692,48 @@ app.get('/', (c) => {
       });
 
       // ── S4: Proceso de Trabajo — rotación desde esquina al enderezarse ──────
+      // ── S7: CTA Final — reveal por línea ─────────────────────────────────
+      function initS7() {
+        var section = document.getElementById('section-cta');
+        if (!section) return;
+
+        var lineInners = section.querySelectorAll('.s7-line-inner');
+        var subInner   = section.querySelector('.s7-sub-inner');
+        var btnInner   = section.querySelector('.s7-btn-inner');
+
+        /* set initial state via GSAP (not CSS) */
+        gsap.set(lineInners, { yPercent: 110 });
+        if (subInner) gsap.set(subInner, { yPercent: 110 });
+        if (btnInner) gsap.set(btnInner, { yPercent: 110 });
+
+        lineInners.forEach(function(el, i) {
+          gsap.to(el, {
+            yPercent: 0,
+            ease: 'power3.out',
+            duration: 0.9,
+            delay: i * 0.12,
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 80%',
+              toggleActions: 'play none none none'
+            }
+          });
+        });
+
+        if (subInner) {
+          gsap.to(subInner, {
+            yPercent: 0, ease: 'power3.out', duration: 0.8, delay: 0.3,
+            scrollTrigger: { trigger: section, start: 'top 80%', toggleActions: 'play none none none' }
+          });
+        }
+        if (btnInner) {
+          gsap.to(btnInner, {
+            yPercent: 0, ease: 'power3.out', duration: 0.8, delay: 0.5,
+            scrollTrigger: { trigger: section, start: 'top 80%', toggleActions: 'play none none none' }
+          });
+        }
+      }
+
       function initS4() {
         var section = document.getElementById('section-proceso');
         if (!section) return;
@@ -2770,68 +2815,7 @@ app.get('/', (c) => {
     })();
 
 
-    /* ── SECTION 7: CTA Final — clip-path reveal por línea con GSAP ── */
-    (function () {
-      function initS7() {
-        var section = document.getElementById('section-cta');
-        if (!section) return;
 
-        /* Todas las líneas: h2 line-inners + sub-inner + btn-inner */
-        var lineInners = section.querySelectorAll('.s7-line-inner');
-        var subInner   = section.querySelector('.s7-sub-inner');
-        var btnInner   = section.querySelector('.s7-btn-inner');
-
-        /* Estado inicial ya en CSS (translateY 110%) — GSAP lo respeta */
-        /* Animamos con gsap.to hacia translateY(0) */
-
-        /* líneas del titular — scrub suave */
-        lineInners.forEach(function(el, i) {
-          gsap.to(el, {
-            y: '0%',
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: section,
-              start: 'top 80%',
-              end:   'top 20%',
-              scrub: false,          /* one-shot, no scrub — más dramático */
-              toggleActions: 'play none none none'
-            },
-            delay: i * 0.12,
-            duration: 0.9
-          });
-        });
-
-        /* subtexto y botón — aparecen después */
-        if (subInner) {
-          gsap.to(subInner, {
-            y: '0%',
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: section,
-              start: 'top 65%',
-              toggleActions: 'play none none none'
-            },
-            delay: 0.1,
-            duration: 0.8
-          });
-        }
-        if (btnInner) {
-          gsap.to(btnInner, {
-            y: '0%',
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: section,
-              start: 'top 65%',
-              toggleActions: 'play none none none'
-            },
-            delay: 0.25,
-            duration: 0.8
-          });
-        }
-      }
-
-      /* initS7 es llamado desde el callback de carga de GSAP (bloque S3) */
-    })();
 
     /* ── MAIN NAVBAR: dark/light mode + active section tracking ── */
     (function () {
