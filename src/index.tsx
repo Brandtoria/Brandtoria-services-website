@@ -1844,19 +1844,13 @@ app.get('/', (c) => {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 0;
-      border: 1.5px solid #e8e8e8;
-      border-radius: 4px;
-      overflow: hidden;
     }
     .s8-col {
-      padding: clamp(36px, 5vw, 56px) clamp(28px, 4vw, 48px);
+      padding: clamp(28px, 4vw, 48px) clamp(28px, 4vw, 48px);
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 16px;
       position: relative;
-    }
-    .s8-col + .s8-col {
-      border-left: 1.5px solid #e8e8e8;
     }
     /* slashes + label row */
     .s8-header {
@@ -1880,14 +1874,14 @@ app.get('/', (c) => {
     .s8-slashes span:nth-child(2) { width: 14px; }
     .s8-label {
       font-family: 'DM Sans', sans-serif;
-      font-size: clamp(14px, 1.1vw, 16px);
+      font-size: clamp(18px, 1.6vw, 24px);
       font-weight: 800;
       color: #1a1a1a;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
       line-height: 1;
       /* subrayado naranja */
       border-bottom: 2px solid #E8321A;
-      padding-bottom: 2px;
+      padding-bottom: 3px;
     }
     .s8-value {
       font-family: 'DM Sans', sans-serif;
@@ -1902,7 +1896,6 @@ app.get('/', (c) => {
 
     @media (max-width: 640px) {
       .s8-grid { grid-template-columns: 1fr; }
-      .s8-col + .s8-col { border-left: none; border-top: 1.5px solid #e8e8e8; }
     }
     </style>
 </head>
