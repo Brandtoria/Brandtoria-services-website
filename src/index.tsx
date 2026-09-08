@@ -1834,6 +1834,76 @@ app.get('/', (c) => {
       .s7-footer { flex-direction: column; align-items: flex-start; }
       .s7-title { font-size: clamp(36px, 11vw, 72px); }
     }
+
+    /* ══════════ S8 CONTACTO ══════════ */
+    #section-contacto {
+      background: #fff;
+      padding: clamp(64px, 10vh, 100px) clamp(32px, 6vw, 96px);
+    }
+    .s8-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1.5px solid #e8e8e8;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .s8-col {
+      padding: clamp(36px, 5vw, 56px) clamp(28px, 4vw, 48px);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: relative;
+    }
+    .s8-col + .s8-col {
+      border-left: 1.5px solid #e8e8e8;
+    }
+    /* slashes + label row */
+    .s8-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .s8-slashes {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+    .s8-slashes span {
+      display: block;
+      height: 2px;
+      background: #E8321A;
+      border-radius: 2px;
+    }
+    .s8-slashes span:nth-child(1) { width: 20px; }
+    .s8-slashes span:nth-child(2) { width: 14px; }
+    .s8-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(14px, 1.1vw, 16px);
+      font-weight: 800;
+      color: #1a1a1a;
+      letter-spacing: -0.01em;
+      line-height: 1;
+      /* subrayado naranja */
+      border-bottom: 2px solid #E8321A;
+      padding-bottom: 2px;
+    }
+    .s8-value {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(13px, 1vw, 15px);
+      font-weight: 400;
+      color: #3a3a3a;
+      line-height: 1.4;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .s8-value:hover { color: #E8321A; }
+
+    @media (max-width: 640px) {
+      .s8-grid { grid-template-columns: 1fr; }
+      .s8-col + .s8-col { border-left: none; border-top: 1.5px solid #e8e8e8; }
+    }
     </style>
 </head>
 <body>
@@ -2454,6 +2524,43 @@ app.get('/', (c) => {
             </span>
           </span>
         </a>
+      </div>
+
+    </section>
+
+
+    <!-- ══════════ S8 CONTACTO ══════════ -->
+    <section id="section-contacto">
+
+      <div class="s8-grid">
+
+        <!-- E-mail -->
+        <div class="s8-col">
+          <div class="s8-header">
+            <div class="s8-slashes"><span></span><span></span></div>
+            <span class="s8-label">E-mail</span>
+          </div>
+          <a class="s8-value" href="mailto:hola@brandtoria.com">hola@brandtoria.com</a>
+        </div>
+
+        <!-- WhatsApp -->
+        <div class="s8-col">
+          <div class="s8-header">
+            <div class="s8-slashes"><span></span><span></span></div>
+            <span class="s8-label">WhatsApp</span>
+          </div>
+          <a class="s8-value" href="https://wa.me/525634104610" target="_blank" rel="noopener">+52 563410 4610</a>
+        </div>
+
+        <!-- Calendly -->
+        <div class="s8-col">
+          <div class="s8-header">
+            <div class="s8-slashes"><span></span><span></span></div>
+            <span class="s8-label">Calendly</span>
+          </div>
+          <a class="s8-value" href="https://brandtoria.com/agenda" target="_blank" rel="noopener">brandtoria.com/agenda</a>
+        </div>
+
       </div>
 
     </section>
