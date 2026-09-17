@@ -87,7 +87,7 @@ app.get('/', (c) => {
       gap: 14px;
       margin-top: 22px;
       opacity: 0;
-      animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 1.4s forwards;
+      animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.7s forwards;
     }
 
     @keyframes fadeUp {
@@ -2604,22 +2604,22 @@ app.get('/', (c) => {
         setTimeout(function(){ show(nxt); }, 60);
       }
 
-      // Start first word after tagline fades in (1.4s delay + 0.5s anim = ~1.9s)
-      setTimeout(function(){ show(0); }, 1950);
+      // Start first word after tagline fades in (0.7s delay + 0.5s anim = ~1.2s)
+      setTimeout(function(){ show(0); }, 1200);
 
       // Cycle every 400ms after that
       setTimeout(function(){
         setInterval(next, 400);
-      }, 1950 + 400);
+      }, 1200 + 400);
 
-      // Exit loader after: 1.95s start + 4 words × 0.4s + 0.4s pause = ~4s
+      // Exit loader after ~2s total
       setTimeout(function(){
         var loader = document.getElementById('loader');
         var site   = document.getElementById('site');
         loader.classList.add('hide');
         site.classList.add('visible');
         setTimeout(function(){ loader.style.display = 'none'; document.documentElement.classList.add('site-ready'); document.body.classList.add('site-ready'); }, 950);
-      }, 4000);
+      }, 2000);
     })();
 
     /* ── SECTION 2: HINGE SCROLL ANIMATION ── */
